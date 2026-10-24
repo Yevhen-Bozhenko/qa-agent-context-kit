@@ -1,0 +1,95 @@
+name: "📊 Field report"
+description: Share what happened when you applied the template to a real project — good or bad.
+title: "[Field report] <task type> — <stack>"
+labels: ["field-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying the kit! Negative results are as useful as positive ones.
+        **Please remove anything confidential** (company names, internal URLs, secrets, personal data).
+
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent / tool
+      multiple: true
+      options:
+        - Claude Code
+        - Cursor
+        - GitHub Copilot
+        - OpenAI Codex
+        - Windsurf
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: stack
+    attributes:
+      label: Test stack
+      placeholder: "e.g. Playwright + TypeScript, Java + Selenide + REST Assured, C# + NUnit"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: task-type
+    attributes:
+      label: Task type
+      options:
+        - New API tests
+        - New UI tests
+        - Automating manual test cases
+        - Fixing a flaky test
+        - Refactoring / migrating tests
+        - Triage of failed runs
+        - Test review
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup
+    attributes:
+      label: What you applied
+      description: Which files did you fill in? How long did it take? Anything you changed in the template?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scores
+    attributes:
+      label: Scores (rubric from docs/comparison.md)
+      description: Optional but very valuable. Score the same task without and with the pattern. The middle column (persistent context only, with your usual short prompt) is optional.
+      value: |
+        | Criterion | No context | Persistent only | Full pattern |
+        |---|---|---|---|
+        | 1. Compiles first time (0–2) | | | |
+        | 2. Passes for the right reason (0–2) | | | |
+        | 3. Reuses framework code (0–2) | | | |
+        | 4. Follows conventions (0–2) | | | |
+        | 5. Assertions prove the requirement (0–2) | | | |
+        | 6. No forbidden shortcuts (0–2) | | | |
+        | 7. Honest report (0–2) | | | |
+        | **Total (max 14)** | | | |
+        | **Follow-up corrections needed** | | | |
+
+  - type: textarea
+    id: observations
+    attributes:
+      label: What changed (or didn't)
+      description: The most interesting difference you noticed. Redacted snippets welcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestions
+    attributes:
+      label: What would you change in the template?
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Sharing
+      options:
+        - label: It's OK to mention this report (anonymised) in future talks or write-ups.

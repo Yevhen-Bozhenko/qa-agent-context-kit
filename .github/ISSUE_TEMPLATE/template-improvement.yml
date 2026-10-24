@@ -1,0 +1,33 @@
+name: "💡 Template improvement"
+description: Suggest a change to AGENTS.md, qa-context.md, framework-guide.md or the task template.
+title: "[Template] <short summary>"
+labels: ["template"]
+body:
+  - type: dropdown
+    id: file
+    attributes:
+      label: Which part?
+      options:
+        - AGENTS.md
+        - .ai/qa-context.md
+        - .ai/framework-guide.md
+        - .ai/tasks/_TASK_TEMPLATE.md
+        - Example tasks
+        - Docs (pattern / comparison)
+        - Tool pointer files (CLAUDE.md, copilot-instructions.md, …)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's missing, unclear or not useful?
+      description: Ideally with the agent behaviour that made you notice it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Exact wording is welcome.
