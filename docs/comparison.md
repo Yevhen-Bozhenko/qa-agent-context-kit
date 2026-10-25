@@ -186,7 +186,7 @@ one-line prompt with no task file — which is exactly the situation the experim
 
 **How it's measured:** per run — *asked for the rules?* and *invented rules (which)?*, recorded by
 a human from the session transcript; then, once the rules are given, the same automated checks
-as Task 1. Protocol: [sandbox `experiments/PROTOCOL.md`](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/blob/experiment-v1/experiments/PROTOCOL.md).
+as Task 1. Protocol: [sandbox `experiments/PROTOCOL.md`](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/blob/main/experiments/PROTOCOL.md).
 
 **With a task file** — [`03-missing-requirements.md`](../template/.ai/tasks/examples/03-missing-requirements.md)
 *(illustrative)*: when you already know the requirements are incomplete, say so in the task.
