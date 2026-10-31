@@ -3,8 +3,6 @@
 A copy-paste template for getting **reliable, repeatable** results from AI coding agents
 (Claude Code, Cursor, GitHub Copilot, Codex and others) on QA and test-automation work.
 
-Companion repository for the webinar **Getting Better Results from AI Coding Agents in QA**.
-
 ---
 
 ## Why
@@ -62,7 +60,8 @@ Full explanation: [docs/pattern.md](docs/pattern.md)
 
    > Read AGENTS.md, then execute .ai/tasks/2026-10-21-booking-validation.md
 
-5. Compare with how it went before — and [tell us](#try-it-and-report-back).
+5. Compare the result with the same kind of task done without the kit — and
+   [share what happened](#try-it-and-report-back), good or bad.
 
 ## What's inside
 
@@ -93,8 +92,11 @@ change, not the structure. PRs adding example tasks for other stacks are welcome
 
 ## With vs. without — in one table
 
-*Illustrative — describes common failure modes and what the pattern targets. Recorded results are
-pending; see [evidence status](docs/comparison.md#evidence-status).*
+*Illustrative — describes common failure modes and what the pattern targets. For the first and
+third rows there are now [recorded results](docs/comparison.md#results--experiment-v1) (11 runs):
+the model avoided most of these failures even without context, so scores hit a ceiling. The pattern
+still changed behaviour: the same tests on every run, and asking or flagging an assumption instead
+of copying the service's current behaviour. See [evidence status](docs/comparison.md#evidence-status).*
 
 | Task | Typical result without | What the pattern changes |
 |---|---|---|
@@ -110,7 +112,8 @@ Details, a persistent-vs-per-task breakdown and a scoring rubric for your own ru
 [docs/comparison.md](docs/comparison.md)
 
 A recorded comparison on real agent output, with a mock API and injected bugs, lives in the
-[sandbox repository](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox).
+[sandbox repository](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox). Its root is
+also a worked example: this template copied into a small project and filled in.
 
 ## Tool compatibility
 
@@ -131,10 +134,12 @@ This repo is an experiment in public: does a shared structure actually make agen
 1. Apply the template to a real project.
 2. Run one task with and without it; score both with the [rubric](docs/comparison.md#score-your-own-runs).
 3. Open an issue:
-   - 📊 **[Field report](../../issues/new?template=field-report.yml)** — your results, good or bad
-   - 💡 **[Template improvement](../../issues/new?template=template-improvement.yml)** — a section that's missing, unclear or useless
+   - 📊 **[Field report](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit/issues/new?template=field-report.yml)** — your results, good or bad
+   - 💡 **[Template improvement](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit/issues/new?template=template-improvement.yml)** — a section that's missing, unclear or useless
    - 🧩 **Example task** — a PR adding a task file from your domain to `template/.ai/tasks/examples/`
 
+Adapted the kit to fit your team? That counts — report what you kept and what you changed.
+A link to your repo or a screenshot of your setup is welcome but not required.
 Negative results are just as useful as positive ones.
 
 ## Contributing

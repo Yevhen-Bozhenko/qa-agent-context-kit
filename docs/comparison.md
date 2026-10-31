@@ -24,15 +24,17 @@ that is the shift from one-off prompting to a repeatable workflow.
 > commonly report when using coding agents on test code. They are qualitative, not a benchmark.
 > A well-written one-off prompt can avoid some of them — once, if you remember to say everything.
 > The code snippets are illustrative and shortened to show the difference; they are not recorded agent output.
-> Measured results from real teams are exactly what the [field reports](../.github/ISSUE_TEMPLATE/field-report.yml)
+> Measured results from real teams are exactly what the [field reports](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit/issues/new?template=field-report.yml)
 > are for — use the [scoring rubric](#score-your-own-runs) below and share yours.
 
 ---
 
 ## Task 1 — Add API validation tests
 
-> **Evidence:** illustrative below. Recorded runs of this scenario: **pending** — see
-> [Recorded results](#recorded-results).
+> **Evidence:** the snippets below are illustrative. This scenario was also **recorded** (9 runs) —
+> see [Recorded results](#recorded-results). In those runs the model avoided most of the "typical
+> result" failures even without context; the differences were in consistency and in how it handled
+> a gap in the ticket.
 
 **Without the pattern**
 
@@ -160,9 +162,9 @@ other tests with the same pattern, which the task file asks for.
 
 ## Task 3 — Missing requirements
 
-> **Evidence:** the example task file below is **illustrative**. Recorded runs of the
-> missing-requirements scenario are **pending** — no outcome is claimed until they exist; see
-> [Recorded results](#recorded-results).
+> **Evidence:** the example task file below is **illustrative**. The missing-requirements scenario
+> was **recorded** without that task file (1 run per condition) — see [Recorded results](#recorded-results).
+> Neither run invented rules; with persistent context the agent stopped and asked before writing code.
 
 **Task:** generate API validation tests for `POST /bookings` when the validation rules are
 **not documented** — no ticket, no acceptance criteria, and a spec that describes only the
@@ -209,7 +211,7 @@ rules nobody wrote down.
 
 ## Additional example — Automate manual test cases
 
-> **Additional material** — not one of the three webinar cases.
+> **Additional material** — not one of the three main cases.
 > **Evidence:** illustrative only — not experimentally verified.
 
 **Without the pattern**
@@ -317,16 +319,61 @@ What the comparisons can show — and what they can't: persistent context is com
 requirements; the task file adds both structure and explicit content, so its effect is reported
 as a whole, not as "structure alone".
 
-*Results: pending. They will be published per run (not only averages), with links to the raw
-agent output and checker reports.*
+### Results — experiment-v1
+
+11 runs, 2026-10-25/26 · Claude Code 2.1.310 · `claude-opus-5-5`, effort `medium` · all valid, none
+needed a correction. Per-run evidence (transcript, diff, automated checks, run sheet), findings,
+limits and deviations: **[sandbox `experiments/results/SUMMARY.md`](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/blob/main/experiments/results/SUMMARY.md)**.
+
+**Main scenario** — one row per run.
+
+| Run | Condition | Rubric (/14) | Required cases (/8) | Bugs caught (/3) | Tests | Field the ticket doesn't specify* |
+|---|---|---|---|---|---|---|
+| [r02](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r02) | No context | 14 | 8 | 3 | 17 | copied current service behaviour |
+| [r07](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r07) | No context | 14 | 8 | 3 | 15 | copied current service behaviour |
+| [r09](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r09) | No context | 13 | 8 | 3 | 15 | copied current service behaviour |
+| [r03](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r03) | Persistent context | 13 | 8 | 2 | 13 | asked, then left it unasserted |
+| [r06](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r06) | Persistent context | 14 | 8 | 3 | 16 | asserted, flagged as an assumption |
+| [r10](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r10) | Persistent context | 14 | 8 | 3 | 16 | asserted, flagged as an assumption |
+| [r01](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r01) | Full pattern | 14 | 8 | 3 | 8 | answered by the task file |
+| [r05](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r05) | Full pattern | 14 | 8 | 3 | 8 | answered by the task file |
+| [r11](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r11) | Full pattern | 14 | 8 | 3 | 8 | answered by the task file |
+
+\* BOOK-412 says checkOut must be after checkIn, but not which field the error names; only the task
+file does. No run misused the framework (all reused the client, builder and fixtures; static checks clean).
+
+**Missing-requirements scenario**
+
+| Run | Condition | Asked for rules | Invented rules | Bugs caught after answer (/3) |
+|---|---|---|---|---|
+| [r08](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r08) | No context | yes — **after** writing 6 tests from `openapi.yaml` | none | 3 |
+| [r04](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/tree/main/experiments/results/r04) | Persistent context | yes — **before writing any code** | none | 3 |
+
+**What the runs show**
+
+1. **Scores don't separate the conditions.** In this small, clean repo the model covered every
+   required case and reused the framework even without context (a ceiling effect). The single missed
+   bug (r03) came from the agent *following* the rules: it wouldn't assert a field the ticket doesn't specify.
+2. **The task file made the output predictable:** the same 8 tests in all three full-pattern runs;
+   13–17 different tests per run without it.
+3. **Persistent context changed how gaps are handled:** where the ticket was silent, no-context runs
+   took the answer from the service's current behaviour (3/3); persistent-context runs asked or
+   flagged the assumption (3/3).
+4. **With missing requirements,** persistent context stopped before building; no context built first,
+   then asked. Neither invented rules.
+
+**Limits:** one task, one repo, one model; 3 runs per condition (1 per missing-requirements
+condition); rubric scored by the author, not blind (bug detection and static checks are automated);
+the `wrong-field` bug depends on a point only the task file specifies. More teams, stacks and tasks
+are what [field reports](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit/issues/new?template=field-report.yml) are for.
 
 ### Evidence status
 
 | Section | Evidence |
 |---|---|
-| Task 1 — API validation tests | Illustrative here; recorded runs **pending** (sandbox, main scenario) |
+| Task 1 — API validation tests | **Recorded** — 9 runs, main scenario ([results](#results--experiment-v1)); snippets in the section are illustrative |
 | Task 2 — Flaky UI test | **Illustrative only** — not experimentally verified |
-| Task 3 — Missing requirements | Example task file illustrative; recorded runs **pending** (sandbox, missing-requirements scenario, run without that task file) |
+| Task 3 — Missing requirements | **Recorded** — 2 runs, run without the example task file ([results](#results--experiment-v1)); the task file is illustrative |
 | Additional example — Manual test cases | **Illustrative only** — not experimentally verified |
 | Same short prompt table | Design intent, not recorded results |
 
@@ -362,7 +409,7 @@ the chat where it was made.
 Run the same task on your project and score each run. At minimum compare
 **no context** vs. **full pattern**; if you can, also try **persistent context only**
 with your usual short prompt — it shows how much the persistent files carry on their own.
-Use the totals in a [field report](../../../issues/new?template=field-report.yml).
+Use the totals in a [field report](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit/issues/new?template=field-report.yml).
 
 | # | Criterion | 0 | 1 | 2 |
 |---|---|---|---|---|

@@ -66,3 +66,22 @@ a rule about what to do when reality disagrees with the spec.
   reference file does something else. The agent follows the code, not the wish.
 - **Rules without examples** — "follow our page object pattern" with no file to look at.
 - **Validation by vibes** — no command, no count, no negative check.
+
+## Why it works
+
+The kit isn't a new technique. It applies well-known prompt and context practices once, in files,
+so nobody has to remember them for each task.
+
+| Practice | Where the kit applies it |
+|---|---|
+| Be clear about what "done" looks like | Task file → *Task*, *Expected output*, *Validation* |
+| Give context and the reason | Task file → *Context*; `qa-context.md` |
+| Show examples | Reference tests in `framework-guide.md` |
+| Specify the output format | Task file → *Expected output*; report format in `AGENTS.md` |
+| Separate instructions from data | Six fixed sections in every task file |
+| One task at a time | One outcome per task file |
+| Keep memory outside the chat | `AGENTS.md`, `qa-context.md`, `framework-guide.md` |
+| Select only what's relevant | Excerpts in *Context*, not whole documents (see *The wiki dump*) |
+| Stable instructions first, task last | `AGENTS.md` → persistent files → task file |
+| Keep facts consistent | *Prune*, *Stale context*, one fact in one place |
+| Iterate and measure | Two-strikes rule, the [rubric](comparison.md#score-your-own-runs), the recorded results |

@@ -22,3 +22,10 @@ Contributions that come from real use are the most valuable ones.
 - **Remove anything confidential** from examples and reports: company names, internal URLs,
   credentials, personal data.
 - Prefer showing over telling: a concrete example beats a paragraph of rules.
+- **Say what to do, not only what to avoid.** A "never" rule should name the alternative:
+  "no hard waits — wait for the response or the element state".
+- **One fact, one place.** When something changes, update the existing line instead of adding
+  a new one. Pointer files (`CLAUDE.md`, `copilot-instructions.md`) repeat only the
+  non-negotiables, and must change together with `AGENTS.md`.
+- **Measure template changes.** Run a fixed task before and after the change and score both with
+  the [rubric](docs/comparison.md#score-your-own-runs). "Sounds better" is not evidence.

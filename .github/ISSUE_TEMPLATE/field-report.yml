@@ -52,9 +52,28 @@ body:
     id: setup
     attributes:
       label: What you applied
-      description: Which files did you fill in? How long did it take? Anything you changed in the template?
+      description: Which files did you fill in? How long did it take? Adapted versions are welcome — what did you keep, change or drop?
     validations:
       required: true
+
+  - type: input
+    id: context
+    attributes:
+      label: Where you used it
+      description: Optional. Kind of project and team, e.g. "e-commerce web app, 4 QA engineers, ~800 UI tests".
+
+  - type: checkboxes
+    id: outcomes
+    attributes:
+      label: What improved?
+      description: Tick anything you noticed. Nothing ticked is a valid answer.
+      options:
+        - label: The agent followed our existing framework architecture better
+        - label: Fewer manual fixes to the generated tests
+        - label: Less time preparing automated tests
+        - label: Assertions closer to the actual requirements
+        - label: The agent asked about missing requirements instead of guessing
+        - label: Fewer forbidden shortcuts (sleeps, retries, skipped tests)
 
   - type: textarea
     id: scores
@@ -87,9 +106,16 @@ body:
     attributes:
       label: What would you change in the template?
 
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Link or screenshot (optional)
+      description: A link to your repo or a screenshot of your configuration (e.g. your filled-in qa-context.md). Drag and drop images here. Redact anything confidential.
+
   - type: checkboxes
     id: consent
     attributes:
       label: Sharing
       options:
         - label: It's OK to mention this report (anonymised) in future talks or write-ups.
+        - label: It's OK to credit me by name or GitHub username when mentioning this report.
