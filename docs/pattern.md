@@ -69,8 +69,10 @@ a rule about what to do when reality disagrees with the spec.
 
 ## Why it works
 
-The kit isn't a new technique. It applies well-known prompt and context practices once, in files,
-so nobody has to remember them for each task.
+The kit is a QA-specific way to give coding agents context — written once in shared files
+instead of repeated in every prompt — plus a
+[public protocol](https://github.com/Yevhen-Bozhenko/qa-agent-context-kit-sandbox/blob/main/experiments/PROTOCOL.md)
+for checking that it works. The table below shows the practices it builds on and where each one is applied.
 
 | Practice | Where the kit applies it |
 |---|---|
